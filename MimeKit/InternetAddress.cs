@@ -1088,7 +1088,7 @@ namespace MimeKit {
 			if (!TryParse (options, buffer, ref index, endIndex, 0, AddressParserFlags.TryParse, out address))
 				return false;
 
-			if (!ParseUtils.SkipCommentsAndWhiteSpace (buffer, ref index, endIndex, false) || index != endIndex) {
+			if (options.AddressParserComplianceMode != RfcComplianceMode.Looser && (!ParseUtils.SkipCommentsAndWhiteSpace (buffer, ref index, endIndex, false) || index != endIndex)) {
 				address = null;
 				return false;
 			}
